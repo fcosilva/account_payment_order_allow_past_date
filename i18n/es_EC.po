@@ -1,0 +1,82 @@
+
+# Translation for account_payment_order_allow_past_date
+# Language: es_EC
+
+msgid ""
+msgstr ""
+"Project-Id-Version: account_payment_order_allow_past_date 17.0\n"
+"POT-Creation-Date: 2026-02-25 00:00+0000\n"
+"PO-Revision-Date: 2026-02-25 00:00+0000\n"
+"Language: es_EC\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: account_payment_order_allow_past_date
+#: model:ir.model.fields,field_description:account_payment_order_allow_past_date.field_res_config_settings__allow_past_payment_order_date
+msgid "Allow Past Dates in Payment Orders"
+msgstr "Permitir fechas pasadas en Órdenes de Pago"
+
+#. module: account_payment_order_allow_past_date
+msgid "Add to Payment Order"
+msgstr "Agregar a Orden de Pago"
+
+#. module: account_payment_order_allow_past_date
+msgid "Use existing payment order"
+msgstr "Usar orden de pago existente"
+
+#. module: account_payment_order_allow_past_date
+msgid "Create new payment order"
+msgstr "Crear nueva orden de pago"
+
+#. module: account_payment_order_allow_past_date
+msgid "Payment Order"
+msgstr "Orden de Pago"
+
+#. module: account_payment_order_allow_past_date
+msgid "Payment Orders"
+msgstr "Órdenes de Pago"
+
+#. module: account_payment_order_allow_past_date
+msgid "Payment Mode"
+msgstr "Modo de Pago"
+
+#. module: account_payment_order_allow_past_date
+msgid "Scheduled Date"
+msgstr "Fecha Programada"
+
+#. module: account_payment_order_allow_past_date
+msgid "Only posted expense reports can be added."
+msgstr "Solo los reportes de gastos contabilizados pueden agregarse."
+
+#. module: account_payment_order_allow_past_date
+msgid "Select a payment order."
+msgstr "Seleccione una orden de pago."
+
+#. module: account_payment_order_allow_past_date
+msgid "Set payment mode."
+msgstr "Configure el modo de pago."
+
+#. module: account_payment_order_allow_past_date
+msgid "Selected expense reports must belong to the same company."
+msgstr "Los reportes de gastos seleccionados deben pertenecer a la misma compañía."
+
+#. module: account_payment_order_allow_past_date
+msgid "Payment Order company does not match the expense reports company."
+msgstr "La compañía de la orden de pago no coincide con la de los reportes de gastos."
+
+#. module: account_payment_order_allow_past_date
+msgid "Missing journal on payment order %s"
+msgstr "Falta el diario en la orden de pago %s"
+
+#. module: account_payment_order_allow_past_date
+msgid "No payment lines on order %s"
+msgstr "No existen líneas de pago en la orden %s"
+
+#. module: account_payment_order_allow_past_date
+msgid "The selected Payment Mode has no journal configured."
+msgstr "El Modo de Pago seleccionado no tiene un diario configurado."
+
+#. module: account_payment_order_allow_past_date
+msgid "Expense report '%s' has no posted journal entry."
+msgstr "El reporte de gastos '%s' no tiene un asiento contable publicado."

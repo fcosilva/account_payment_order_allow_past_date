@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action para abrir el wizard -->
+    <record id="action_expense_sheet_add_to_payment_order" model="ir.actions.act_window">
+        <field name="name">Agregar a Orden de Pago</field>
+        <field name="res_model">add.expense.to.payment.order.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="hr_expense.model_hr_expense_sheet"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <!-- Botón en la barra superior de la vista tree -->
+    <record id="view_hr_expense_sheet_tree_payment_btn" model="ir.ui.view">
+        <field name="name">hr.expense.sheet.tree.payment.button</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="string">Reportes de Gastos</attribute>
+            </xpath>
+            <xpath expr="//tree" position="inside">
+                <header>
+                    <button
+                        name="%(action_expense_sheet_add_to_payment_order)d"
+                        type="action"
+                        string="Agregar a Orden de Pago"
+                        groups="account_payment_order.group_account_payment"
+                    />
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

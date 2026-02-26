@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_add_expense_to_payment_order_wizard_form" model="ir.ui.view">
+        <field name="name">add.expense.to.payment.order.wizard.form</field>
+        <field name="model">add.expense.to.payment.order.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Agregar a Orden de Pago">
+                <group>
+                    <field name="option"/>
+                    <field name="order_id"
+                           invisible="option != 'existing'"
+                           required="option == 'existing'"/>
+                </group>
+
+                <group invisible="option != 'new'">
+                    <field name="payment_mode_id" required="option == 'new'"/>
+                    <field name="date_scheduled"/>
+                </group>
+
+                <footer>
+                    <button string="Cancelar" special="cancel" class="btn-secondary"/>
+                    <button string="Aplicar" type="object" name="action_apply" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

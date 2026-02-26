@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_expense_payment_orders"
+        name="Órdenes de Pago"
+        parent="hr_expense.menu_hr_expense_my_expenses"
+        action="account_payment_order.account_payment_order_outbound_action"
+        sequence="20"
+        groups="account_payment_order.group_account_payment"
+    />
+</odoo>
