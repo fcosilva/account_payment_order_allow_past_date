@@ -23,7 +23,7 @@ Para habilitar la funcionalidad de fechas pasadas:
 2.  Busca la sección `Pagos` y activa la opción **"Permitir fechas pasadas en Órdenes de Pago"**.
 3.  Guarda los cambios.
 
-![config-option](https://i.imgur.com/your-screenshot-url.png) <!-- Reemplaza con una URL de captura de pantalla si lo deseas -->
+<!-- ![config-option](https://i.imgur.com/your-screenshot-url.png)  Reemplaza con una URL de captura de pantalla si lo deseas -->
 
 ## Uso
 
