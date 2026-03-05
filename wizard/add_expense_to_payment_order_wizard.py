@@ -1,5 +1,5 @@
 from odoo import _, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import AccessError, UserError
 
 
 class AddExpenseToPaymentOrderWizard(models.TransientModel):
@@ -35,6 +35,7 @@ class AddExpenseToPaymentOrderWizard(models.TransientModel):
     def action_apply(self):
         self.ensure_one()
         sheets = self._get_sheets()
+        created_new_order = False
 
         if self.option == "existing":
             if not self.order_id:
@@ -54,22 +55,30 @@ class AddExpenseToPaymentOrderWizard(models.TransientModel):
                 "date_scheduled": self.date_scheduled,
                 "company_id": sheets[0].company_id.id,
             })
+            created_new_order = True
 
         if order.company_id != sheets[0].company_id:
             raise UserError(_("La compañía de la orden de pago no coincide con la de los reportes de gastos."))
 
+        selected_reports_count = len(sheets)
+        omitted_reports_count = 0
+        created_lines_count = 0
+        existing_move_line_ids = set(order.payment_line_ids.mapped("move_line_id").ids)
         for sheet in sheets:
             moves = sheet.account_move_ids.filtered(lambda m: m.state == "posted")
             if not moves:
                 raise UserError(_("El reporte de gastos '%s' no tiene un asiento contable publicado.") % sheet.name)
             move = moves[0]
 
+            lines_created_for_sheet = 0
             payable_lines = move.line_ids.filtered(
                 lambda l: l.account_id.account_type == "liability_payable"
                 and not l.reconciled
                 and (l.amount_residual or l.amount_residual_currency)
             )
             for line in payable_lines:
+                if line.id in existing_move_line_ids:
+                    continue
                 amount = abs(line.amount_residual_currency) if line.currency_id else abs(line.amount_residual)
                 if not amount:
                     continue
@@ -82,11 +91,62 @@ class AddExpenseToPaymentOrderWizard(models.TransientModel):
                     "date": self.date_scheduled,
                     "communication": move.name or sheet.name or "",
                 })
+                created_lines_count += 1
+                lines_created_for_sheet += 1
+                existing_move_line_ids.add(line.id)
+            if not lines_created_for_sheet:
+                omitted_reports_count += 1
 
-        return {
+        # Avoid leaving a new empty payment order when all selected reports are already paid/reconciled.
+        if created_new_order and not created_lines_count:
+            order.unlink()
+            raise UserError(
+                _(
+                    "No se creó la orden de pago porque los reportes seleccionados no tienen líneas pendientes por pagar."
+                )
+            )
+
+        open_order_action = {
             "type": "ir.actions.act_window",
             "res_model": "account.payment.order",
+            "views": [(False, "form")],
             "view_mode": "form",
             "res_id": order.id,
             "target": "current",
         }
+
+        if omitted_reports_count:
+            message = _(
+                "Se agregaron %(lines)s líneas y se omitieron %(omitted)s informes sin líneas pendientes o ya incluidas en la orden.",
+                lines=created_lines_count,
+                omitted=omitted_reports_count,
+            )
+            try:
+                result_wizard = self.env["add.expense.to.payment.order.result.wizard"].create({
+                    "order_id": order.id,
+                    "summary_message": message,
+                })
+                return {
+                    "type": "ir.actions.act_window",
+                    "name": _("Resultado de la operación"),
+                    "res_model": "add.expense.to.payment.order.result.wizard",
+                    "views": [(False, "form")],
+                    "view_mode": "form",
+                    "res_id": result_wizard.id,
+                    "target": "new",
+                    "context": {"dialog_size": "medium"},
+                }
+            except AccessError:
+                return {
+                    "type": "ir.actions.client",
+                    "tag": "display_notification",
+                    "params": {
+                        "title": _("Resultado de la operación"),
+                        "message": message,
+                        "type": "warning",
+                        "sticky": False,
+                        "next": open_order_action,
+                    },
+                }
+
+        return open_order_action

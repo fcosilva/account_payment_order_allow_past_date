@@ -3,3 +3,4 @@ access_add_expense_to_payment_order_wizard_all,add.expense.to.payment.order.wiza
 access_add_expense_to_payment_order_wizard,add.expense.to.payment.order.wizard,model_add_expense_to_payment_order_wizard,account_payment_order.group_account_payment,1,1,1,1
 access_add_expense_to_payment_order_wizard_accountant,add.expense.to.payment.order.wizard accountant,model_add_expense_to_payment_order_wizard,account.group_account_user,1,1,1,1
 access_add_expense_to_payment_order_wizard_invoice,add.expense.to.payment.order.wizard invoice,model_add_expense_to_payment_order_wizard,account.group_account_invoice,1,1,1,1
+access_add_expense_to_payment_order_result_wizard_all,add.expense.to.payment.order.result.wizard all,model_add_expense_to_payment_order_result_wizard,,1,1,1,1

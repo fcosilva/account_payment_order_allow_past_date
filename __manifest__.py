@@ -14,7 +14,8 @@
         "views/res_config_settings_view.xml",
         "views/hr_expense_sheet_action.xml",
         "views/hr_expense_menu.xml",
-        "wizard/add_expense_to_payment_order_wizard_view.xml"
+        "wizard/add_expense_to_payment_order_wizard_view.xml",
+        "wizard/add_expense_to_payment_order_result_wizard_view.xml"
     ],
     "installable": True
 }
